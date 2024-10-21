@@ -4,6 +4,7 @@ import TaskModal from '../components/TaskModal/TaskModal';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
 
+// Styled components
 const AppContainer = styled.div`
   background-color: #d1e7fd; /* Light blue background */
   min-height: 100vh;
@@ -37,14 +38,26 @@ const FilterSelect = styled.select`
   font-size: 16px; /* Larger font for better readability */
 `;
 
+// Initial tasks
 const initialTasks = [
   { id: 1, title: 'Task 1', status: 'To Do', assignee: 'User1', priority: 'Low', dueDate: '2024-10-30' },
   { id: 2, title: 'Task 2', status: 'In Progress', assignee: 'User2', priority: 'Medium', dueDate: '2024-10-25' },
   { id: 3, title: 'Task 3', status: 'Completed', assignee: 'User3', priority: 'High', dueDate: '2024-10-20' },
 ];
 
+// Define Task interface for type safety
+interface Task {
+  id: number;
+  title: string;
+  description?: string; // Optional field
+  assignee: string;
+  priority: string;
+  dueDate: string;
+  status: string;
+}
+
 const App: React.FC = () => {
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [isModalOpen, setModalOpen] = useState(false);
   const [filterStatus, setFilterStatus] = useState<string>('All');
 
@@ -54,7 +67,7 @@ const App: React.FC = () => {
     localStorage.setItem('tasks', JSON.stringify(updatedTasks)); // Save to local storage
   };
 
-  const handleModalSubmit = (task: any) => {
+  const handleModalSubmit = (task: Task) => { // Use Task type here
     const newTask = { id: Date.now(), ...task }; // Creating a new task with a unique ID
     const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);

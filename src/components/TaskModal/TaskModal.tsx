@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 
+// Styled components
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -89,6 +90,7 @@ const ModalContent = styled.div`
   }
 `;
 
+// Validation Schema
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   dueDate: Yup.date().required('Due Date is required'),
@@ -97,10 +99,20 @@ const validationSchema = Yup.object().shape({
   status: Yup.string().required('Status is required'),
 });
 
+// Define TaskValues interface for form values
+interface TaskValues {
+  title: string;
+  description: string;
+  assignee: string;
+  priority: string;
+  dueDate: string;
+  status: string;
+}
+
 interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (values: any) => void;
+  onSubmit: (values: TaskValues) => void; // Use TaskValues type here
 }
 
 const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, onSubmit }) => {

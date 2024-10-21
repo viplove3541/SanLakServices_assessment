@@ -1,6 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// Define the Task interface to specify the structure of a task
+interface Task {
+    id: number; // or string, depending on how you manage IDs
+    title: string;
+    status: string; // Add appropriate types based on your actual data
+    assignee: string;
+    priority: string;
+    dueDate: string; // Adjust type if you have a Date object or other formats
+}
+
+// Styled components
 const TaskListContainer = styled.div`
   padding: 20px;
   background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Fresh gradient background */
@@ -124,7 +135,8 @@ const DeleteButton = styled.button`
   }
 `;
 
-const TaskList: React.FC<{ tasks: any[]; onDelete: (id: number) => void }> = ({ tasks, onDelete }) => {
+// Update the TaskList component to use the Task type
+const TaskList: React.FC<{ tasks: Task[]; onDelete: (id: number) => void }> = ({ tasks, onDelete }) => {
   return (
     <TaskListContainer>
       {tasks.map((task) => (
